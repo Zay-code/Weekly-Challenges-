@@ -1,0 +1,106 @@
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Application</title>
+        <link rel="stylesheet" href="emailservice.css">
+        <meta name="viewport" content="width=device-width, iniitial-scale=1.0">
+    </head>
+    <body>
+        <div class="container">
+            <div class="text">
+            Email Service    
+            </div>
+                <form action="#">
+                    <div class="form-row">
+                        <form action="https://sheetdb.io/api/v1/d5io5rc2142gq" method="POST" id="sheetdb-form" href="actionpage_php">
+                        <div class="input-data">
+                            <input type="text" name="data[name]" required="required" onchange="updateMessage(name, value)">
+                            <div class="underline"></div>
+                            <label>Full Name</label>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-data">
+                            <input type="text" name="data[email]" required="required" onchange="updateMessage(name, value)">
+                            <div class="underline"></div>
+                            <label>Email Address</label>
+                        </div>
+                        <div class="input-data">
+                            <input type="text" name="data[number]" required="required" onchange="updateMessage(name, value)">
+                            <div class="underline"></div>
+                            <label>Contact Number</label>
+                        </div>
+                        <div class="input-data">
+                            <input type="text" name="data[address]" required="required" onchange="updateMessage(name, value)">
+                            <div class="underline"></div>
+                            <label>Address</label>
+                        </div>
+                        <div class="input-data">
+                            <input type="text" name="data[dob]" required="required" onchange="updateMessage(name, value)">
+                            <div class="underline"></div>
+                            <label>Date Of Birth</label>
+                        </div>
+                    </div>
+                    <div class="form-row textarea">
+                        <div class="input-data ">
+                            <div class="inner"></div>
+                            <textarea cols="30" rows="10" required="required" name="data[message]" onchange="updateMessage(name, value)"></textarea>
+                            <div class="underline"></div>
+                            <label>Message</label>
+                        </div>
+                    </div>
+                    <div class="form-row submit-btn">
+                        <div class="input-data">
+                            <div class="inner"></div>
+                            <input type="submit" name="" value="Send" onclick="sendEmail()">
+                        </div>
+                    </div>
+                </form>
+
+                </div>
+            </div>
+            <script>
+                var form = document.getElementById('sheetdb-form');
+                form.addEventListener("submit", e => {
+                  e.preventDefault();
+                  fetch(form.action, {
+                      method : "POST",
+                      body: new FormData(document.getElementById("sheetdb-form")),
+                  }).then(
+                      response => response.json()
+                  ).then((html) => {
+                    alert('Message has been successfully sent!')
+                  });
+                });
+              </script>
+        </script>
+        <script src="https://smtpjs.com/v3/smtp.js">
+        </script>
+
+            <script>
+        
+                let a = {
+            
+                }
+                function updateMessage(key, value){
+            
+                    a[key] = value;
+            
+                }
+                function sendEmail(){
+                    Email.send({
+                        Host: "smtp.gmail.com",
+                        Username:"zaynab.hartley@younglings.africa",
+                        Password:"Password1",
+                        To: 'closertohome01@gmail.com',
+                        From: `Email: ${a["data[email]"]}`,
+                        Subject: "Email Service",
+                        Body: `Name: ${a["data[name]"]} <br> ${a["data[email]"]} <br> ${a["data[number]"]} <br> ${a["data[address]"]} <br> ${a["data[dob]"]} <br> ${a["data[message]"]}`
+        }).then(
+            message=> alert(message)
+        );
+                }
+            </script>
+
+    </body>
+</html>
